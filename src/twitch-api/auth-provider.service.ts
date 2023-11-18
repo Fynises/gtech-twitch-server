@@ -10,7 +10,6 @@ export class AuthProviderService {
   private authProvider: RefreshingAuthProvider;
 
   constructor(private readonly authDb: TwitchAuthDbService) {
-    console.log('auth provider constructor==================================');
     const authProvider = new RefreshingAuthProvider({
       clientId: process.env.TWITCH_CLIENT_ID,
       clientSecret: process.env.TWITCH_CLIENT_SECRET,
