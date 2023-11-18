@@ -24,8 +24,8 @@ import { EventSubModule } from './event-sub/event-sub.module';
       username: process.env.DB_USERNAME,
       entities: ENTITIES,
       database: process.env.DB_DATABASE,
-      synchronize: true,
-      logging: true,
+      synchronize: process.env.DB_SYNCHRONIZE,
+      logging: process.env.DB_LOGGING,
     }),
     JwtModule.register({
       global: true,
