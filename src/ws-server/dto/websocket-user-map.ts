@@ -35,6 +35,10 @@ export class WebSocketUserMap {
     }
   }
 
+  disconnectAll(): void {
+    Array.from(this.sessions.values()).forEach((v) => v.close());
+  }
+
   isEmpty(): boolean {
     return this.sessions.size === 0;
   }

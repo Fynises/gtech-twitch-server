@@ -18,19 +18,26 @@ export class WebsocketManagerService {
   }
 
   async register(session: WebSocketSession): Promise<void> {
-    const isValidId = await this.wsConfigDb.validateAuthKey(session.authKey);
-    if (isValidId === null) {
+    const validUserId = await this.wsConfigDb.validateAuthKey(session.authKey);
+    if (validUserId === null) {
       session.closeSocket();
       return;
     }
     session.socket.on('close', () => {
-      this.sessionMap.handleClose(isValidId, session.sessionUid);
+      this.sessionMap.handleClose(validUserId, session.sessionUid);
     });
-    this.sessionMap.insertNew(isValidId, session);
+    this.sessionMap.insertNew(validUserId, session);
   }
 
-  async remove(): Promise<void> {
-    //TODO
+  /**
+   * disconnects all websocket connections for this user
+   */
+  async disconnectAll(userId: string): Promise<void> {
+    try {
+      this.sessionMap.disconnectAll(userId);
+    } catch (e) {
+      this.log.error(e);
+    }
   }
 
   /**

@@ -41,6 +41,13 @@ export class SessionMap {
     });
   }
 
+  disconnectAll(userId: string): void {
+    if (this.sessions.size === 0) return;
+    this.getByUser(userId, (map) => {
+      map.disconnectAll();
+    });
+  }
+
   sendAll<T extends WebSocketMessageBody>(userId: string, message: T): void {
     this.getByUser(userId, (map) => map.sendMessage(message.toJsonString()));
   }

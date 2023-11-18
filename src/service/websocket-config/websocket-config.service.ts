@@ -1,10 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { WebsocketConfigDbService } from 'src/db/websocket-config/websocket-config.service';
+import { WebsocketManagerService } from 'src/ws-server/websocket-manager.service';
 
 @Injectable()
 export class WebsocketConfigService {
   private readonly log = new Logger(WebsocketConfigService.name);
-  constructor(private readonly db: WebsocketConfigDbService) {}
+  constructor(
+    private readonly db: WebsocketConfigDbService,
+    private websocketManager: WebsocketManagerService,
+  ) {}
 
   /**
    * executes the get db function
@@ -25,7 +29,7 @@ export class WebsocketConfigService {
    */
   async update(userId: string): Promise<string> {
     const newUid = await this.db.regenerate(userId);
-    // TODO: more functionality here
+    this.websocketManager.disconnectAll(userId);
     return newUid;
   }
 }
