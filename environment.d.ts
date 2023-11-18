@@ -12,7 +12,7 @@ declare namespace NodeJS {
     DB_USERNAME: string;
     DB_PASSWORD: string;
     DB_DATABASE: string;
-    DB_SYNCHRONIZE: boolean;
-    DB_LOGGING: boolean;
+    DB_SYNCHRONIZE: string;
+    DB_LOGGING: string;
   }
 }

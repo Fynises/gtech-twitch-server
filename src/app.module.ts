@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TwitchApiModule } from './twitch-api/twitch-api.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
@@ -24,8 +22,8 @@ import { EventSubModule } from './event-sub/event-sub.module';
       username: process.env.DB_USERNAME,
       entities: ENTITIES,
       database: process.env.DB_DATABASE,
-      synchronize: process.env.DB_SYNCHRONIZE,
-      logging: process.env.DB_LOGGING,
+      synchronize: process.env.DB_SYNCHRONIZE === 'true' ? true : false,
+      logging: process.env.DB_LOGGING === 'true' ? true : false,
     }),
     JwtModule.register({
       global: true,
@@ -42,8 +40,8 @@ import { EventSubModule } from './event-sub/event-sub.module';
     ServiceModule,
     WebsocketServerModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
   constructor(
