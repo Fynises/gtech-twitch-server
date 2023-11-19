@@ -1,5 +1,6 @@
 import { WebSocket } from 'ws';
 import { v4 as uuidv4 } from 'uuid';
+import { PingController } from './ping-controller';
 
 const URL_PREFIX = '/ws';
 
@@ -10,11 +11,13 @@ export class WebSocketSession {
   socket: WebSocket; // websocket session proper
   authKey: string; // authenticating key: used to identify user connecting
   sessionUid: string; // UUID uniquely identifying this session
+  pingController: PingController;
 
   constructor(socket: WebSocket, url: string | undefined) {
     this.socket = socket;
     this.authKey = WebSocketSession.parseUrl(url);
     this.sessionUid = uuidv4();
+    this.pingController = new PingController(socket);
   }
 
   private static parseUrl(url: string | undefined): string {
