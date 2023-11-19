@@ -12,10 +12,8 @@ export class PingController {
     this.intervalHandle = setInterval(() => {
       this.isAlive = false;
       socket.ping();
-      console.log('sent ping');
       setTimeout(() => {
         if (!this.isAlive) {
-          console.log('clearing interval');
           clearInterval(this.intervalHandle);
           socket.close();
         }
@@ -24,7 +22,6 @@ export class PingController {
 
     socket.on('pong', () => {
       this.isAlive = true;
-      console.log('received pong');
     });
   }
 }
