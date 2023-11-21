@@ -21,12 +21,17 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   server: Server;
 
   handleConnection(client: WebSocket, req: IncomingMessage) {
-    this.log.log(`new connection: ${client}, ${req.url}`);
-    const session = new WebSocketSession(client, req.url);
-    this.log.log(`created session: ${session.toString()}`);
-    this.websocketManager.register(session).catch((e) => {
-      this.log.error(`error occurred registering session: ${e}`);
-    });
+    try {
+      this.log.log(`new connection: ${client}, ${req.url}`);
+      const session = new WebSocketSession(client, req.url);
+      this.log.log(`created session: ${session.toString()}`);
+      this.websocketManager.register(session).catch((e) => {
+        this.log.error(`error occurred registering session: ${e}`);
+      });
+    } catch (e) {
+      this.log.error(`error occurred creating websocket connection: ${e}`);
+      client.close();
+    }
   }
 
   handleDisconnect(client: WebSocket) {

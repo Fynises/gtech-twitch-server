@@ -32,6 +32,9 @@ export class WebSocketSession {
     const urlParams = new URLSearchParams(paramOnly);
     const socketUid = urlParams.get('id');
     if (socketUid !== null) {
+      if (socketUid.length !== 36) {
+        throw new Error(`socket uid is of incorrect length`);
+      }
       return socketUid;
     } else {
       throw new Error(`socket uid was null from ${socketUid}`);
