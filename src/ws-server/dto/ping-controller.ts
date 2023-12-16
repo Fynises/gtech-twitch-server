@@ -18,7 +18,7 @@ export class PingController {
           socket.close();
         }
       }, 5000);
-    }, 60000);
+    }, 30000);
 
     socket.on('pong', () => {
       this.isAlive = true;
