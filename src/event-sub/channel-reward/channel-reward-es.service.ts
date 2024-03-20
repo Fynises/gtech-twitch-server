@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, Logger } from '@nestjs/common';
 import { EventSubService } from '../event-sub.service';
 import { WebsocketManagerService } from 'src/ws-server/websocket-manager.service';

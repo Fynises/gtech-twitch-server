@@ -15,10 +15,10 @@ export class EventSubService implements OnModuleInit {
 
   onModuleInit() {
     this.listener.onUserSocketConnect((userId) => {
-      this.log.log(`user: ${userId} successfully connected to websocket`);
+      this.log.log(`user: ${userId} successfully connected to event socket`);
     });
     this.listener.onUserSocketDisconnect((userId) => {
-      this.log.log(`user: ${userId} successfully disconnected from websocket`);
+      this.log.log(`user: ${userId} successfully disconnected from event socket`);
     });
   }
 
