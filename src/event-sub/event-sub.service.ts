@@ -20,6 +20,9 @@ export class EventSubService implements OnModuleInit {
     this.listener.onUserSocketDisconnect((userId) => {
       this.log.log(`user: ${userId} successfully disconnected from event socket`);
     });
+    this.listener.onSubscriptionCreateFailure((sub, e) => {
+      this.log.log(`error occurred creating subscription: ${sub.id} for user ${sub.authUserId}, error: ${e}`);
+    });
   }
 
   getRef(): EventSubWsListener {
